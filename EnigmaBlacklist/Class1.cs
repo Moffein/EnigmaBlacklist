@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace EnigmaBlacklist
 {
-    [BepInPlugin("com.Moffein.EnigmaBlacklist", "Enigma Blacklist", "1.0.0")]
+    [BepInPlugin("com.Moffein.EnigmaBlacklist", "Enigma Blacklist", "1.0.1")]
     public class EnigmaBlacklist : BaseUnityPlugin
     {
         public static bool blacklistLunars = true;
@@ -18,6 +18,14 @@ namespace EnigmaBlacklist
 
         public static string blacklistString = "";
         public static string whitelistString = "";
+
+        private void ReadConfig()
+        {
+            blacklistLunars = Config.Bind("Settings", "Blacklist Lunars", true, "Prevent Lunars from being rolled.").Value;
+            blacklistString = Config.Bind("Settings", "Blacklist String", "Recycle, Tonic, BossHunter, BossHunterConsumed", "Equipments to blacklist. Separated by comma, case-sensitive. Full list can be found at https://github.com/risk-of-thunder/R2Wiki/wiki/Item-&-Equipment-IDs-and-Names").Value;
+            useWhitelist = Config.Bind("Settings", "Use Whitelist", false, "Use a whitelist instead of a blacklist. Disables Blacklist String setting.").Value;
+            whitelistString = Config.Bind("Settings", "Whitelist String", "", "Equipments to whitelist. Separated by comma, case-sensitive. Full list can be found at https://github.com/risk-of-thunder/R2Wiki/wiki/Item-&-Equipment-IDs-and-Names").Value;
+        }
 
         public void Awake()
         {
@@ -75,14 +83,6 @@ namespace EnigmaBlacklist
                     EnigmaArtifactManager.validEquipment.Remove(ei);
                 }
             };
-        }
-
-        private void ReadConfig()
-        {
-            blacklistLunars = Config.Bind("Settings", "Blacklist Lunars", true, "Prevent Lunars from being rolled.").Value;
-            blacklistString = Config.Bind("Settings", "Blacklist String", "Recycle, Tonic", "Equipments to blacklist. Separated by comma, case-sensitive. Full list can be found at https://github.com/risk-of-thunder/R2Wiki/wiki/Item-&-Equipment-IDs-and-Names").Value;
-            useWhitelist = Config.Bind("Settings", "Use Whitelist", false, "Use a whitelist instead of a blacklist. Disables Blacklist String setting.").Value;
-            whitelistString = Config.Bind("Settings", "Whitelist String", "", "Equipments to whitelist. Separated by comma, case-sensitive. Full list can be found at https://github.com/risk-of-thunder/R2Wiki/wiki/Item-&-Equipment-IDs-and-Names").Value;
         }
     }
 }
