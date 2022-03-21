@@ -6,9 +6,17 @@ using RoR2;
 using RoR2.Artifacts;
 using UnityEngine;
 
+namespace R2API.Utils
+{
+    [AttributeUsage(AttributeTargets.Assembly)]
+    public class ManualNetworkRegistrationAttribute : Attribute
+    {
+    }
+}
+
 namespace EnigmaBlacklist
 {
-    [BepInPlugin("com.Moffein.EnigmaBlacklist", "Enigma Blacklist", "1.0.2")]
+    [BepInPlugin("com.Moffein.EnigmaBlacklist", "Enigma Blacklist", "1.0.3")]
     public class EnigmaBlacklist : BaseUnityPlugin
     {
         public static bool blacklistLunars = true;
